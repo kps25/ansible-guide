@@ -1,0 +1,11 @@
+- name: Install '{{pkgname}}'  package
+  yum: pkg='{{pkgname}}' state='{{state}}'
+  notify: Restart httpd
+  tags: httpd
+- name: wait untill wait.txt file is available
+  wait_for:
+   path: /home/ansible/wait.txt
+- name: Copy index.html
+  template: src=index.html dest=/var/www/html/
+- name: Copy s1 file
+  copy: src=s1 dest=/var/www/html/
